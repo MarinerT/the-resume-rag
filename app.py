@@ -32,9 +32,6 @@ with st.sidebar:
     st.subheader("Coming Soon!")
     st.caption("Copy/Paste your requirements and get a comparison to my resume using the multi-query fusion approach!")
 
-    with open('./.streamlit/creds.yaml') as file:
-        config = yaml.load(file, Loader=SafeLoader)
-
     authenticator = stauth.Authenticate(
         dict(st.secrets['credentials']),
         st.secrets.cookie.name,
