@@ -42,7 +42,7 @@ with st.sidebar:
     name, authentication_status, username = authenticator.login("Login", "sidebar")
 
     if st.session_state["authentication_status"]:
-        authenticator.logout()
+        authenticator.logout("Logout", "sidebar")
         st.write(f'Welcome *{st.session_state["name"]}*')
         st.title('Some content')
     elif st.session_state["authentication_status"] is False:
