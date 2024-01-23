@@ -36,11 +36,11 @@ with st.sidebar:
         config = yaml.load(file, Loader=SafeLoader)
 
     authenticator = stauth.Authenticate(
-        config['credentials'],
-        config['cookie']['name'],
-        config['cookie']['key'],
-        config['cookie']['expiry_days'],
-        config['preauthorized']
+        dict(st.secrets['credentials']),
+        st.secrets.cookie.name,
+        st.secrets.cookie.key,
+        st.secrets.cookie.expiry_days,
+        st.secrets['preauthorized']
     )
     name, authentication_status, username = authenticator.login("Login", "sidebar")
 
