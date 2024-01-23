@@ -1,0 +1,7 @@
+Apache Spark Developer Associate, Expires July 2024
+AWS Certified Solutions Architect, Expires November 2024
+AWS Certified Cloud Practitioner, Expires November 2024
+CompTIA Security+, Expires September 2026
+Google IT Automation with Python Certificate 
+DeepLearning.AI Build Basic Generative Adversarial Networks Certificate
+DeepLearning.AI Tensorflow Developer Professional Certificate: 80-hour course with labs and graded quizzes, NLP & CNN in Tensorflow Certificates 

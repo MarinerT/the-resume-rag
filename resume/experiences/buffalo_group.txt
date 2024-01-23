@@ -1,0 +1,7 @@
+company: Buffalo Group
+Software Engineer/Data Scientist, Washington, D.C. August 2020 - December 2020
+Reviewed and updated python script documentation as well as writing a continuity guide using visuals and non-technical language to describe the data ingestion pipeline for collecting, validating, processing, stacking and updating the SQL database.
+Explored the capabilities of TabPy, an open-source library that allows executable python code in Tableau.
+Successfully instantiated AWS Elasticsearch services (v. 5.3), creating mappings and indexing text in its datastore through a serverless deployment using AWS Cloud Formation.
+Evaluated Apache NiFi and Tableau's Prep Builder as possible ETL tools by developing experiments in the absence of training data.
+Mentored junior staff in data governance, coding, statistical modeling.

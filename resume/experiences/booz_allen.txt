@@ -1,0 +1,46 @@
+company: Booz Allen Hamilton
+data scientist, remote, january 2021 - december 2021
+Collaborated on a cross-functional, scrum-based team focused on AGILE software development to turn manual analysis into automated analytics with SpaCy’s Named Entity Recognition ruler algorithm.
+Generated test data and experiments in absence of datasets.
+Worked closely with other team members to ensure proper model implementation.
+Customized a SpaCy 3.0 natural language processing CNN model with rule-based matching focusing on creating unique labels for capturing data in messages.
+Built, tested, and deployed a REST API with FastAPI on AWS Cloud infrastructure and Docker using Pydantic modules for data consumption and data validation.
+Interpreted architect requirements into code, negotiating features with the front-end developer and taking ownership of API and database software components and testing.
+
+senior data scientist, Alexandria, V.A., december 2021 - november 2022
+Improved temporal-geospatial data analysis timing by 324% over a 6 month period, improving concision and tripling geospatial coverage for analysis from 6 to 20 countries.
+Collaborated with team members to eliminate data siloing by creating Databricks-specific patches to existing packages and developing re-usable, internal python packages.
+Streamlined and automated analytical modeling from data preprocessing to model evaluation while evaluating the statistical effects of the data mining changes.
+Performed ETL operations on API accessed data, creating continuous updated raw data sources stored in data lakes using Databricks Lakehouse infrastructure from external sources.
+Pitched, developed, and implemented an entire Apache Structured Streaming ETL process incorporating internal Python packages to transform and clean lakehouse stored data.
+Mentored new data engineers engaged in a company sponsored bootcamp, advising on company culture, company resources, and answering questions about data engineering resources .
+
+data scientist, Molesworth, U.K., november 2022 - march 2023
+Explored network-specific CI/CD capabilities for improving data deliverables.
+Prototyped modernized CI/CD DevOps pipelines for smoother code exchange, data intakes and enhanced internal processes for managing code.
+Explored different data repositories, processors, and workflow orchestration tools like Jenkins and GitLab. 
+Collaborated with colleagues on updating, standardizing Scala code into Python.
+
+senior data scientist, remote, march 2023 - october 2023
+Project A 
+Solely responsible for end-to-end pipeline development, data architecting, and dashboard creation on a self-hosted Tableau server.
+Orchestrated, deployed, and diagramed a Rancher-managed Kubernetes deployment of a Tableau server with CRON job data calls dropping gathered and cleaned data into a MYSQL server with attached EBS volumes.
+Created external and internal ingresses for customer access to the Tableau server’s dashboards.
+Troubleshot issues that arose with Tableau overloading data, making incorrect calls, and showing incorrect data (time-range issues), as well as with the Python client gathering data.
+
+Project B 
+Collaborated on a research project to develop a pipeline to deploy an object detection model on a satellite in orbit.
+Leveraged the firm’s international partner, Spiral Blue, to build out and test Docker containers on its proprietary middleware. 
+Successfully containerized and orchestrated a lean ML pipeline utilizing under 13 MB of memory in deployment.
+
+Project C
+Using a scrum-based setup, our team developed an analytics product to showcase a variety of different data gathering techniques and visualization capabilities, including web scraping, API calls. 
+Showcased a variety of different visualizations using user tables, graphs, and dynamical maps. 
+Incorporated data from the International Telecommunications Union (ITU) scraping Network Satellite filings, pulled and cleaned orbital object data from the SpaceTrack API, as well as adding filterable NOTAM data to Streamlit Folium map. 
+Worked with the data engineer to debug architectural issues including improving latency and incorporating a REST API.
+Assisted junior staff with coding tips and guidelines for producing NLP products, including using BeautifulSoup to scrape news sites, programmatically update tables on a Streamlit app, as well as use this data to run through a SpaCy named entity recognition model. 
+Deployed Streamlit apps to a Rancher-managed Kubernetes cluster.
+
+Project D
+Researched ETL, results validation and deployment methods for large language models.
+Prototyped LLM-chatbots that interact with private repositories.

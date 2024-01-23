@@ -1,0 +1,3 @@
+Self-motivated, client-oriented, collaborative data engineer/data scientist with 7+ years in IT/Cyber and 4+ years experience in Data Science who enjoys creating, reusable, scalable data pipelines. 
+Frequently translated vague client needs into specific actionable plans, thereby resulting in improved, efficient, processes with more reliable data. 
+Moved an entire team to distributed processing with custom Python packages and detailed diagrams for continuity and documentation purposes.

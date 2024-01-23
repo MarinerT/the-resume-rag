@@ -1,0 +1,6 @@
+Resume Chatbot. Created a LLM chatbot that interacts with my PDF resume. toddsresumebot.streamlit.app
+Document Recommender. Trained and developed a model that recommends documents from EDGAR based on IP address.
+Message Reader. Created an NLP model using SpaCy that read messages and labeled entities.
+ETL pipeline with Distributed Processing using CI/CD and Delta Lake.
+Lean ML Pipeline. Developed a containerized YOLOV5 object detection model pipeline under 13 MB in total.
+Open Source Analytic Product. Deployed an app gathering up- to-date data displayed in Streamlit on a Rancher-K8 cluster.
