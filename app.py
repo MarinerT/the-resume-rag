@@ -72,7 +72,7 @@ unzip()
 
 # load index from pinecone
 @st.cache_resource
-def load_pinecone(documents, embeddings=OpenAIEmbeddings()):
+def load_pinecone(_documents, embeddings=OpenAIEmbeddings()):
     pinecone.init(api_key=st.secrets.pinecone.api_key)
     if index_name not in pinecone.list_indexes():
         # we create a new index
@@ -81,7 +81,7 @@ def load_pinecone(documents, embeddings=OpenAIEmbeddings()):
             metric='cosine',
             dimension=1536  
             )
-    docsearch = Pinecone.from_documents(documents, embeddings, index_name=st.secrets.pinecone.index)
+    docsearch = Pinecone.from_documents(_documents, embeddings, index_name=st.secrets.pinecone.index)
     return docsearch
 
 # # #--------------------------
