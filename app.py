@@ -61,44 +61,48 @@ else:
 # --------------------------------------------------------------------------------------- #
 #                                  The Retriever
 
-# from langchain.vectorstores import Pinecone
-# from langchain.embeddings.openai import OpenAIEmbeddings
-# import pinecone
+from langchain.vectorstores import Pinecone
+from langchain.embeddings.openai import OpenAIEmbeddings
+import pinecone
 
-# # Load resume
-# from toddbo.loader_utils import unzip, fetch_load_split
+# Load resume
+from toddbo.loader_utils import unzip, fetch_load_split
 
-# unzip()
+unzip()
 
-# # load index from pinecone
-# @st.cache_resource
-# def load_pinecone(documents, embeddings=OpenAIEmbeddings()):
-#     pinecone.init(api_key=st.secrets.pinecone.api_key)
-#     if index_name not in pinecone.list_indexes():
-#         # we create a new index
-#         pinecone.create_index(
-#             name=st.secrets.pinecone.index,
-#             metric='cosine',
-#             dimension=1536  
-#             )
-#     docsearch = Pinecone.from_documents(documents, embeddings, index_name=st.secrets.pinecone.index)
-#     return docsearch
+# load index from pinecone
+@st.cache_resource
+def load_pinecone(documents, embeddings=OpenAIEmbeddings()):
+    pinecone.init(api_key=st.secrets.pinecone.api_key)
+    if index_name not in pinecone.list_indexes():
+        # we create a new index
+        pinecone.create_index(
+            name=st.secrets.pinecone.index,
+            metric='cosine',
+            dimension=1536  
+            )
+    docsearch = Pinecone.from_documents(documents, embeddings, index_name=st.secrets.pinecone.index)
+    return docsearch
 
 # # #--------------------------
 # # # Create Chain
 
-# from langchain.chat_models import ChatOpenAI
-# from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain.chat_models import ChatOpenAI
+from langchain.retrievers.multi_query import MultiQueryRetriever
 
-# def retrieve_resume_records(prompt):
-#     documents = fetch_load_split()
-#     vectordb = load_pinecone(documents)
-#     retriever = vectordb.as_retriever(search_type="mmr")
+def retrieve_resume_records(prompt):
+    documents = fetch_load_split()
+    vectordb = load_pinecone(documents)
+    retriever = vectordb.as_retriever(search_type="mmr")
 
-#     llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
-#     retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
-#     unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
-#     return unique_docs
+    llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
+    retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
+    unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
+    return unique_docs
+
+result = retrieve_resume_records(prompt="Where did Todd work in 2021?")
+st.write(result)
+
 # # #--------------------------
 
 # def generate_search_results(
