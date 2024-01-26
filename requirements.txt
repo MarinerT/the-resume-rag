@@ -72,7 +72,7 @@ pandas==2.2.0
 parso==0.8.3
 pexpect==4.9.0
 # pillow==10.2.0
-pinecone-client==3.0.1
+pinecone-client==2.2.4
 platformdirs==4.1.0
 prompt-toolkit==3.0.43
 protobuf==4.25.2
