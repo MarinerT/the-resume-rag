@@ -19,7 +19,7 @@ from toddbo.openai_constants import (
     GPT_4_32K_0613_MODEL,
 )
 
-"OPENAI_API_KEY" = st.secrets.openai.OPENAI_API_KEY
+OPENAI_API_KEY = st.secrets.openai.OPENAI_API_KEY
 
 
 
@@ -55,7 +55,7 @@ with st.sidebar:
 selected_custom_name = "Todd's Resume"
 
 if authentication_status:
-    os.environ['OPENAI_API_KEY'] = st.secrets.openai.openai_api_key
+    os.environ['OPENAI_API_KEY'] = st.secrets.openai.OPENAI_API_KEY
 else:
     st.title("In order to use the chatbot, you need to be signed in.")
 
