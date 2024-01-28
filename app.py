@@ -2,8 +2,6 @@ import os, pickle
 import logging
 import streamlit as st
 import streamlit_authenticator as stauth
-import yaml
-from yaml.loader import SafeLoader
 from toddbo.openai_constants import (
     MAX_TOKENS,
     GPT_3_5_TURBO_MODEL,
@@ -21,7 +19,7 @@ from toddbo.openai_constants import (
     GPT_4_32K_0613_MODEL,
 )
 
-"OPENAI_API_KEY": st.secrets.openai.OPENAI_API_KEY,
+"OPENAI_API_KEY" = st.secrets.openai.OPENAI_API_KEY
 
 
 
