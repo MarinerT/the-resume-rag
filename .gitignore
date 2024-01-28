@@ -162,3 +162,5 @@ cython_debug/
 .streamlit/
 creds.yaml
 data/
+.vscode/
+```

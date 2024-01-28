@@ -73,7 +73,7 @@ unzip()
 
 # load index from pinecone
 @st.cache_resource
-def load_pinecone(_documents, embeddings=OpenAIEmbeddings()):
+def load_pinecone(_documents, embeddings=OpenAIEmbeddings(OPENAI_API_KEY=OPENAI_API_KEY)):
     pinecone.init(api_key=st.secrets.pinecone.api_key)
     if index_name not in pinecone.list_indexes():
         # we create a new index
