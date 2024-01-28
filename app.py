@@ -71,6 +71,7 @@ from toddbo.loader_utils import unzip, fetch_load_split
 
 unzip()
 
+index_name = st.secrets.pinecone.index
 # load index from pinecone
 @st.cache_resource
 def load_pinecone(_documents, embeddings=OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)):
@@ -78,7 +79,7 @@ def load_pinecone(_documents, embeddings=OpenAIEmbeddings(openai_api_key=OPENAI_
     if index_name not in pinecone.list_indexes():
         # we create a new index
         pinecone.create_index(
-            name=st.secrets.pinecone.index,
+            name=index_name,
             metric='cosine',
             dimension=1536  
             )
