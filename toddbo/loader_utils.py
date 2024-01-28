@@ -6,6 +6,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 import streamlit as st
 
+OPENAI_KEY = st.secrets.OPENAI_API_KEY
+
 def unzip() -> None:
     " unzips resume.zip and dumps into current directory as resume/"
     with z.ZipFile('./resume.zip', 'r') as zip_ref:
@@ -41,7 +43,7 @@ def load_to_pinecone(formatted_documents,namespace="v1", batch_size=100) -> None
 ## CREATING THE VECTORS
 
 def get_embeddings(documents, model_name='text-embedding-ada-002'):
-    embed = OpenAIEmbeddings(model=model_name)
+    embed = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY, model=model_name)
     texts = [document.page_content for document in documents]
     return embed.embed_documents(texts)
 
