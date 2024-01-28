@@ -1,7 +1,0 @@
-company: Accounting Principles, contracted to Bloomberg
-financial analyst, Princeton, N.J., December 2011 - October 2012
-Mined data from key global financial databases in several languages to identify missing information in Bloomberg’s database. 
-Contracted to Bloomberg for two projects, utilized Bloomberg Terminal and related proprietary software to upload, tag and analyze multi-lingual financial documents for about 60,000 periods.
-Researched missing financial periods for global companies in multiple languages, namely in North and West Germanic, West Slavic, and Korean languages, creating standard operating procedures for document retrieval for several foreign markets.
-Thoroughly researched, tagged, cleaned, and manipulated specialized data elements for various dashboards including Blomberg’s Pipeline, Retail Apparel, and Shipping sites.
-Mined data from key global financial databases in several languages to identify missing information in Bloomberg’s database. 

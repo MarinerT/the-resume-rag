@@ -1,3 +1,0 @@
-Programming Languages: Python (5 yrs), YAML (2 yrs), Javascript - Node (1 yr)
-Python Libraries Familiar with: PySpark, Pinecone, Chromadb, FastAPI, Pydantic, TensorFlow, Scikitlearn, SciPy, FastAPI, NetworkX, SpaCy, BeautifulSoup, SciPy, PyTorch, LangChain, HuggingFace
-Datastores: MongoDB, DynamoDB, AWS S3, Data Lakes, Delta Lakes, Lakehouse, Databricks, Google Cloud Storage, SQL, NoSQL, Graph Databases, Relational Databases, Vectorstores

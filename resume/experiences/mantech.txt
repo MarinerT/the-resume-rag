@@ -1,4 +1,0 @@
-company: ManTech
-Systems Adminstrator/IT Help Desk, Bethesda, M.D. April 2019 - November 2019
-Troubleshot daily maintenance on customers' computers, network connectivity, local administrator tasks like creating accounts.
-Assisted the Applications Team in developing and incorporating Jira and Confluence into the Center's infrastructure.

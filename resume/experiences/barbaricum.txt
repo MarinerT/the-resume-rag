@@ -1,5 +1,0 @@
-company: Barbaricum
-Data Engineer, Washington, D.C. November 2023 - January 2024
-Created internal RAGS (Retrieval Augmented Generation) AI chatbots for internal document searches in Slack using the multi-query fusion approach.
-Built RAG systems in the Google Cloud, using Google Cloud Storage, Google Run, APIs & Services, and IAM.
-Consulted on proposal work as the internal LLM SME. 
