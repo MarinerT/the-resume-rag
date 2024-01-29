@@ -77,12 +77,7 @@ index_name = st.secrets.pinecone.index
 def load_pinecone(_documents, embeddings=OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)):
     pinecone.init(api_key=st.secrets.pinecone.api_key)
     if index_name not in pinecone.list_indexes():
-        # we create a new index
-        pinecone.create_index(
-            name=index_name,
-            metric='cosine',
-            dimension=1536  
-            )
+        return None
     docsearch = Pinecone.from_documents(_documents, embeddings, index_name=st.secrets.pinecone.index)
     return docsearch
 
@@ -95,13 +90,15 @@ from langchain.retrievers.multi_query import MultiQueryRetriever
 def retrieve_resume_records(prompt):
     documents = fetch_load_split()
     vectordb = load_pinecone(documents)
-    retriever = vectordb.as_retriever(search_type="mmr")
+    if vectordb is not None:
+        retriever = vectordb.as_retriever(search_type="mmr")
 
-    llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
-    retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
-    unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
-    return unique_docs
-
+        llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
+        retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
+        unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
+        return unique_docs
+    else:
+        return None
 result = retrieve_resume_records(prompt="Where did Todd work in 2021?")
 st.write(result)
 
