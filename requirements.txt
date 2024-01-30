@@ -21,3 +21,4 @@ urllib3==2.1.0
 streamlit-authenticator==0.2.3
 langchain
 openai
+langchain-community
