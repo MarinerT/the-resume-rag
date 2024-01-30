@@ -2,7 +2,6 @@ import streamlit as st
 import time
 import openai
 from typing import Dict, List, Union
-from openai.openai_object import OpenAIObject
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from tenacity import (
     retry,
@@ -18,7 +17,7 @@ def make_synchronous_openai_call(
     temperature: float,
     messages: List[Dict[str, Union[str, Dict[str, str]]]],
     timeout_seconds: int,
-) -> OpenAIObject:
+):
     return openai.ChatCompletion.create(
         api_key=openai_api_key,
         model=model,
