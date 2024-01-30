@@ -18,3 +18,4 @@ requests==2.31.0
 rsa==4.9
 soupsieve==2.5
 urllib3==2.1.0
+streamlit-authenticator==0.2.3
