@@ -3,8 +3,8 @@ import streamlit as st
 import streamlit_authenticator as stauth
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
-from langchain.chat_models import ChatOpenAI
-from toddbo.chain import generate_search_results
+from langchain.openai import ChatOpenAI
+from langchain import generate_search_results
 from toddbo.retriever import build_retriever
 
 with st.sidebar:

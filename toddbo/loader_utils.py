@@ -3,7 +3,7 @@ import tiktoken
 import uuid
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 import streamlit as st
 
 OPENAI_KEY = st.secrets.OPENAI_API_KEY
