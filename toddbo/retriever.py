@@ -9,7 +9,7 @@ from toddbo.loader_utils import unzip, fetch_load_split
 unzip()
 
 index_name = st.secrets.pinecone.index
-OPENAI_API_KEY = st.secrets.openai.api_key
+OPENAI_API_KEY = st.secrets.openai.OPENAI_API_KEY
 
 # Load Pinecone
 @st.cache_resource
