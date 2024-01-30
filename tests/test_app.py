@@ -1,25 +1,27 @@
-import unittest
-from unittest.mock import patch
 import app
 
-class TestApp(unittest.TestCase):
+def test_app():
+    # Test case 1: User is authenticated
+    app.authentication_status = True
+    app.user_prompt = "Hello, how are you?"
+    app.llm_chain = MockLLMChain()  # Replace with your own mock implementation
+    app.st.session_state.messages = []
 
-    def test_page_title(self):
-        with patch('streamlit.set_page_config') as mock_set_page_config:
-            app.main()
-            mock_set_page_config.assert_called_once_with(page_title="Todd's ResumeBot", layout="wide")
+    app.run_chat()
 
-    def test_header_text(self):
-        with patch('streamlit.title') as mock_title, \
-             patch('streamlit.header') as mock_header:
-            app.main()
-            mock_title.assert_called_once_with("Todd's Resume Bot")
-            mock_header.assert_called_once_with("Ask my resume questions!")
+    assert len(app.st.session_state.messages) == 1
+    assert app.st.session_state.messages[0]["role"] == "assistant"
+    assert app.st.session_state.messages[0]["content"] == "Mock response"
 
-    def test_sidebar(self):
-        with patch('streamlit.sidebar.subheader') as mock_subheader:
-            app.main()
-            mock_subheader.assert_called_once_with("Coming Soon!")
+    # Test case 2: User is not authenticated
+    app.authentication_status = False
+    app.user_prompt = "Hello, how are you?"
+    app.st.session_state.messages = []
 
-if __name__ == '__main__':
-    unittest.main()
+    app.run_chat()
+
+    assert len(app.st.session_state.messages) == 0
+    assert app.st._last_alert["message"] == "please enter the password."
+
+if __name__ == "__main__":
+    test_app()
