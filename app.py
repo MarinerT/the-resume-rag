@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit_authenticator as stauth
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
-from langchain.openai import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain import generate_search_results
 from toddbo.retriever import build_retriever
 
