@@ -1,4 +1,4 @@
-import app
+import .app as app
 
 def test_app():
     # Test case 1: User is authenticated
