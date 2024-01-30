@@ -1,3 +1,4 @@
+import streamlit as st  
 from langchain.vectorstores import Pinecone
 from langchain_community.embeddings import OpenAIEmbeddings
 import pinecone
