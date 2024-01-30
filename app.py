@@ -4,7 +4,8 @@ import streamlit_authenticator as stauth
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
-
+from toddbo.chain import generate_search_results
+from toddbo.retriever import build_retriever
 
 with st.sidebar:
     st.subheader("Coming Soon!")
@@ -117,10 +118,19 @@ st.header("Resume ChatBot!")
 #     value="You are a helpful AI assistant who answers questions in short sentences.",
 #     key="system_prompt")
 
-system_prompt = "You are a helpful AI assistant who answers questions in short sentences."
-
+system_prompt = (
+                "You're an assistant tasked with helping users by finding relevant documents. "
+                "Your task is to provide as many relevant documents as possible "
+                "while providing main key points on why each document is relevant as well provide its source. "
+                "Lastly, generating results swiftly should be prioritized over achieving perfection."
+            )
 # Create LLM chain to use for our chatbot.
-llm_chain = create_chain(system_prompt)
+# llm_chain = create_chain(system_prompt)
+llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
+
+
+# Build the retriever
+retriever = build_retriever()
 
 # We store the conversation in the session state.
 # This will be used to render the chat conversation.
@@ -156,7 +166,8 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
     # streaming response as the llm is generating. We get our response
     # here once the LLM has finished generating the complete response.
     if authentication_status:
-        response = llm_chain.invoke({"question": user_prompt})
+        # response = llm_chain.invoke({"question": user_prompt})
+        response = generate_search_results(llm, retriever, user_prompt)
 
         # Add the response to the session state
         st.session_state.messages.append(

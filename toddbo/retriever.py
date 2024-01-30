@@ -19,7 +19,7 @@ def load_pinecone(_documents, embeddings=OpenAIEmbeddings(openai_api_key=OPENAI_
     docsearch = Pinecone.from_documents(_documents, embeddings, index_name=st.secrets.pinecone.index)
     return docsearch
 
-def retrieve_resume_records(search_type="mmr"):
+def build_retriever(search_type="mmr"):
     documents = fetch_load_split()
     vectordb = load_pinecone(documents)
     if vectordb is not None:
