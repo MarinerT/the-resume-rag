@@ -4,8 +4,8 @@ import streamlit_authenticator as stauth
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
-from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
-from toddbo.retriever import build_retriever
+# from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
+# from toddbo.retriever import build_retriever
 
 with st.sidebar:
     st.subheader("Coming Soon!")
@@ -124,13 +124,14 @@ system_prompt = (
                 "while providing main key points on why each document is relevant as well provide its source. "
                 "Lastly, generating results swiftly should be prioritized over achieving perfection."
             )
+
 # Create LLM chain to use for our chatbot.
-# llm_chain = create_chain(system_prompt)
-llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
+llm_chain = create_chain(system_prompt)
+# llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
 
 
 # Build the retriever
-retriever = build_retriever()
+# retriever = build_retriever()
 
 # We store the conversation in the session state.
 # This will be used to render the chat conversation.
@@ -166,41 +167,41 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
     # streaming response as the llm is generating. We get our response
     # here once the LLM has finished generating the complete response.
     if authentication_status:
-        # response = llm_chain.invoke({"question": user_prompt})
+        response = llm_chain.invoke({"question": user_prompt})
         #get relevant documents 
-        documents = retrieve_resume_documents(llm, user_prompt, retriever)
+        # documents = retrieve_resume_documents(llm, user_prompt, retriever)
     
-        messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You're an assistant tasked with helping users by finding relevant documents. "
-                    "Your task is to provide as many relevant documents as possible "
-                    "while providing main key points on why each document is relevant as well provide its source. "
-                    "Lastly, generating results swiftly should be prioritized over achieving perfection."
-                ),
-            },
-            {
-                "role": "user",
-                "content": "I'll provide input as text of a list of Documents in content that follows '!!!. "
-                "Each item in the list contains page_content and metadata."
-                "provide key facts per page and give the section from the metadata." 
-                " Provide the information in short bullet points and provide the metadata with each document laid as such:"
-                "if a word is between * and *, make the word appear bold."
-                "*Key Facts per Page*: "
-                "*Section*: "
-                "Do not make stuff up. If a document has no valuable information, skip it."
-                f"Here is the input !!!\n{str(documents)}",
-            },
-        ]
+        # messages = [
+        #     {
+        #         "role": "system",
+        #         "content": (
+        #             "You're an assistant tasked with helping users by finding relevant documents. "
+        #             "Your task is to provide as many relevant documents as possible "
+        #             "while providing main key points on why each document is relevant as well provide its source. "
+        #             "Lastly, generating results swiftly should be prioritized over achieving perfection."
+        #         ),
+        #     },
+        #     {
+        #         "role": "user",
+        #         "content": "I'll provide input as text of a list of Documents in content that follows '!!!. "
+        #         "Each item in the list contains page_content and metadata."
+        #         "provide key facts per page and give the section from the metadata." 
+        #         " Provide the information in short bullet points and provide the metadata with each document laid as such:"
+        #         "if a word is between * and *, make the word appear bold."
+        #         "*Key Facts per Page*: "
+        #         "*Section*: "
+        #         "Do not make stuff up. If a document has no valuable information, skip it."
+        #         f"Here is the input !!!\n{str(documents)}",
+        #     },
+        # ]
     
-        response = make_synchronous_openai_call(
-            openai_api_key=st.secrets.OPENAI_API_KEY,
-            model=st.secrets.openai.OPENAI_MODEL,
-            temperature=st.secrets.openai.temperature,
-            messages=messages,
-            timeout_seconds=timeout_seconds,
-        )
+        # response = make_synchronous_openai_call(
+        #     openai_api_key=st.secrets.OPENAI_API_KEY,
+        #     model=st.secrets.openai.OPENAI_MODEL,
+        #     temperature=st.secrets.openai.temperature,
+        #     messages=messages,
+        #     timeout_seconds=timeout_seconds,
+        # )
 
         # Add the response to the session state
         st.session_state.messages.append(

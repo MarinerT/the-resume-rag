@@ -26,4 +26,24 @@ def build_retriever(search_type="mmr"):
     if vectordb is not None:
         retriever = vectordb.as_retriever(search_type=search_type)
         return retriever
-    
+
+
+## CHROMA    
+ def generate_context(docsearch, kwargs):
+    retriever = docsearch.as_retriever(**kwargs)
+    return retriever
+   
+def retrieve_resume_documents(
+        prompt: str,
+        ):
+    client = connect_to_chroma(chroma_host=CHROMA_HOST, chroma_port=CHROMA_PORT)
+    retriever = generate_context(client, embedding_function=OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY), collection_name=HANDBOOK_COLLECTION_NAME)
+    llm = ChatOpenAI(temperature=st.secrets.openai.temperature)
+    retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
+
+    unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
+    return unique_docs
+
+def generate_context(docsearch, kwargs):
+    retriever = docsearch.as_retriever(**kwargs)
+    return retriever
