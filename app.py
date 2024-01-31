@@ -123,6 +123,7 @@ system_prompt = (
                 "Your task is to provide as many relevant documents as possible "
                 "while providing main key points on why each document is relevant as well provide its source. "
                 "Lastly, generating results swiftly should be prioritized over achieving perfection."
+                "Separate each entry by line."
             )
 
 # Create LLM chain to use for our chatbot.
