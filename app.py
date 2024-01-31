@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 import streamlit_authenticator as stauth
-from langchain.prompts import PromptTemplate
+# from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
 # from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
