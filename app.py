@@ -108,7 +108,7 @@ def create_chain(system_prompt):
 
 
 # Create a header element
-st.header("Resume ChatBot!")
+st.header("Chat with Todd's Resume Assistant!")
 
 # This sets the LLM's personality for each prompt.
 # The initial personality provided is basic.
