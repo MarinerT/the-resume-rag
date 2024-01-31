@@ -6,7 +6,10 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 import streamlit as st
 
+from toddbo.datastores import connect_to_collection, upload_to_collection
+
 OPENAI_KEY = st.secrets.OPENAI_API_KEY
+
 
 def unzip() -> None:
     " unzips resume.zip and dumps into current directory as resume/"
@@ -32,6 +35,8 @@ def fetch_load_split(directory="resume/", chunk_size=128, chunk_overlap=64) -> l
     documents = loader.load_and_split(text_splitter=text_splitter)
     return documents
 
+
+## PINECONE
 def load_to_pinecone(formatted_documents,namespace="v1", batch_size=100) -> None:
     pc = Pinecone(api_key=st.secrets.pinecone.api_key)
     index = pc.Index(st.secrets.pinecone.index)
@@ -40,7 +45,7 @@ def load_to_pinecone(formatted_documents,namespace="v1", batch_size=100) -> None
         index.upsert(vectors=formatted_documents[i:i+batch_size], namespace=namespace)
 
 
-## CREATING THE VECTORS
+## CREATING THE VECTORS FOR PINECONE
 
 def get_embeddings(documents, model_name='text-embedding-ada-002'):
     embed = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY, model=model_name)
@@ -71,3 +76,9 @@ def format_to_json(documents) -> list:
                 }
         new_list.append(temp)
     return new_list
+
+def load_documents_to_chroma(client):
+    unzip()
+    documents = fetch_load_split()
+    collection = connect_to_collection(client, st.secrets.chroma.COLLECTION)
+    upload_to_collection(documents, collection)

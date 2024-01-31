@@ -5,7 +5,7 @@ import pinecone
 
 # Load resume
 from toddbo.loader_utils import unzip, fetch_load_split
-
+from toddbo.datastores import connect_to_chroma, connect_to_collection
 unzip()
 
 index_name = st.secrets.pinecone.index
@@ -29,21 +29,17 @@ def build_retriever(search_type="mmr"):
 
 
 ## CHROMA    
- def generate_context(docsearch, kwargs):
+def generate_context(docsearch, kwargs):
     retriever = docsearch.as_retriever(**kwargs)
     return retriever
    
 def retrieve_resume_documents(
         prompt: str,
         ):
-    client = connect_to_chroma(chroma_host=CHROMA_HOST, chroma_port=CHROMA_PORT)
-    retriever = generate_context(client, embedding_function=OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY), collection_name=HANDBOOK_COLLECTION_NAME)
+    client = connect_to_chroma(chroma_host=st.secrets.chroma.CHROMA_HOST, chroma_port=st.secrets.chroma.CHROMA_PORT)
+    retriever = generate_context(client, embedding_function=OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY), collection_name=st.secrets.chroma.COLLECTION)
     llm = ChatOpenAI(temperature=st.secrets.openai.temperature)
     retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
 
     unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
     return unique_docs
-
-def generate_context(docsearch, kwargs):
-    retriever = docsearch.as_retriever(**kwargs)
-    return retriever

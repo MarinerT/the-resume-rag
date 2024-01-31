@@ -6,7 +6,9 @@ from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
 # from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
 # from toddbo.retriever import build_retriever
+from toddbo import connect_to_chroma, load_documents_to_chroma
 
+### AUTHENTICATION ---------------------------------- ###
 with st.sidebar:
     st.subheader("Coming Soon!")
     st.caption("Copy/Paste your requirements and get a comparison to my resume using the multi-query fusion approach!")
@@ -106,6 +108,9 @@ def create_chain(system_prompt):
 
     return llm_chain
 
+### DOC LOADER ---------------------------------- ###
+client = connect_to_chroma()
+load_documents_to_chroma(client)
 
 # Create a header element
 st.header("Chat with Todd's Resume Assistant!")
