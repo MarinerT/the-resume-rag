@@ -32,7 +32,7 @@ dnspython==2.5.0
 emoji==2.10.0
 executing==2.0.1
 extra-streamlit-components==0.1.60
-fastapi==0.109.0
+fastapi==0.85.1
 filelock==3.13.1
 filetype==1.2.0
 flatbuffers==23.5.26
