@@ -93,6 +93,3 @@ def load_documents_to_chroma(client):
     collection = connect_to_collection(client, st.secrets.chroma.COLLECTION)
     upload_to_collection(documents, collection)
 
-if __name__ == "__main__":
-    client = connect_to_chroma()
-    load_documents_to_chroma(client)
