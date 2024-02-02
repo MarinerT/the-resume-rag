@@ -1,9 +1,11 @@
 import os
 import streamlit as st
 import streamlit_authenticator as stauth
+
 # from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
+
 # from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
 # from toddbo.retriever import build_retriever
 from toddbo import connect_to_chroma, load_documents_to_chroma
@@ -11,32 +13,36 @@ from toddbo import connect_to_chroma, load_documents_to_chroma
 ### AUTHENTICATION ---------------------------------- ###
 with st.sidebar:
     st.subheader("Coming Soon!")
-    st.caption("Copy/Paste your requirements and get a comparison to my resume using the multi-query fusion approach!")
+    st.caption(
+        "Copy/Paste your requirements and get a comparison to my resume using the multi-query fusion approach!"
+    )
 
     authenticator = stauth.Authenticate(
-        dict(st.secrets['credentials']),
+        dict(st.secrets["credentials"]),
         st.secrets.cookie.name,
         st.secrets.cookie.key,
         st.secrets.cookie.expiry_days,
-        st.secrets['preauthorized']
+        st.secrets["preauthorized"],
     )
     name, authentication_status, username = authenticator.login("Login", "sidebar")
 
     if st.session_state["authentication_status"]:
         authenticator.logout("Logout", "sidebar")
         st.write(f'Welcome *{st.session_state["name"]}*')
-        st.title('Some content')
-        os.environ['OPENAI_API_KEY'] = st.secrets.openai.OPENAI_API_KEY
+        st.title("Some content")
+        os.environ["OPENAI_API_KEY"] = st.secrets.openai.OPENAI_API_KEY
     elif st.session_state["authentication_status"] is False:
-        st.error('Username/password is incorrect')
+        st.error("Username/password is incorrect")
         st.title("In order to use the chatbot, you need to be signed in.")
     elif st.session_state["authentication_status"] is None:
-        st.warning('Please enter your username and password')
+        st.warning("Please enter your username and password")
         st.title("In order to use the chatbot, you need to be signed in.")
 
 # StreamHandler to intercept streaming output from the LLM.
 # This makes it appear that the Language Model is "typing"
 # in realtime.
+
+
 class StreamHandler(BaseCallbackHandler):
     def __init__(self, container, initial_text=""):
         self.container = container
@@ -84,7 +90,10 @@ def create_chain(system_prompt):
     #         verbose=False,
     #         streaming=True,
     #         )
-    llm = ChatOpenAI(temperature=st.secrets.openai.temperature, model_name=st.secrets.openai.generation_model)
+    llm = ChatOpenAI(
+        temperature=st.secrets.openai.temperature,
+        model_name=st.secrets.openai.generation_model,
+    )
 
     # Template you will use to structure your user input before converting
     # into a prompt. Here, my template first injects the personality I wish to
@@ -108,6 +117,7 @@ def create_chain(system_prompt):
 
     return llm_chain
 
+
 ### DOC LOADER ---------------------------------- ###
 client = connect_to_chroma()
 load_documents_to_chroma(client)
@@ -124,12 +134,12 @@ st.header("Chat with Todd's Resume Assistant!")
 #     key="system_prompt")
 
 system_prompt = (
-                "You're an assistant tasked with helping users by finding relevant documents. "
-                "Your task is to provide as many relevant documents as possible "
-                "while providing main key points on why each document is relevant as well provide its source. "
-                "Lastly, generating results swiftly should be prioritized over achieving perfection."
-                "Separate each entry by line."
-            )
+    "You're an assistant tasked with helping users by finding relevant documents. "
+    "Your task is to provide as many relevant documents as possible "
+    "while providing main key points on why each document is relevant as well provide its source. "
+    "Lastly, generating results swiftly should be prioritized over achieving perfection."
+    "Separate each entry by line."
+)
 
 # Create LLM chain to use for our chatbot.
 llm_chain = create_chain(system_prompt)
@@ -160,9 +170,7 @@ for message in st.session_state.messages:
 if user_prompt := st.chat_input("Your message here", key="user_input"):
 
     # Add our input to the session state
-    st.session_state.messages.append(
-        {"role": "user", "content": user_prompt}
-    )
+    st.session_state.messages.append({"role": "user", "content": user_prompt})
 
     # Add our input to the chat window
     with st.chat_message("user"):
@@ -174,9 +182,9 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
     # here once the LLM has finished generating the complete response.
     if authentication_status:
         response = llm_chain.invoke({"question": user_prompt})
-        #get relevant documents 
+        # get relevant documents
         # documents = retrieve_resume_documents(llm, user_prompt, retriever)
-    
+
         # messages = [
         #     {
         #         "role": "system",
@@ -191,7 +199,7 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
         #         "role": "user",
         #         "content": "I'll provide input as text of a list of Documents in content that follows '!!!. "
         #         "Each item in the list contains page_content and metadata."
-        #         "provide key facts per page and give the section from the metadata." 
+        #         "provide key facts per page and give the section from the metadata."
         #         " Provide the information in short bullet points and provide the metadata with each document laid as such:"
         #         "if a word is between * and *, make the word appear bold."
         #         "*Key Facts per Page*: "
@@ -200,7 +208,7 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
         #         f"Here is the input !!!\n{str(documents)}",
         #     },
         # ]
-    
+
         # response = make_synchronous_openai_call(
         #     openai_api_key=st.secrets.OPENAI_API_KEY,
         #     model=st.secrets.openai.OPENAI_MODEL,
@@ -210,9 +218,7 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
         # )
 
         # Add the response to the session state
-        st.session_state.messages.append(
-            {"role": "assistant", "content": response}
-        )
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
         # Add the response to the chat window
         with st.chat_message("assistant"):

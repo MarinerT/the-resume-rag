@@ -1,4 +1,5 @@
-import .app as app
+import app.app as app
+
 
 def test_app():
     # Test case 1: User is authenticated
@@ -22,6 +23,7 @@ def test_app():
 
     assert len(app.st.session_state.messages) == 0
     assert app.st._last_alert["message"] == "please enter the password."
+
 
 if __name__ == "__main__":
     test_app()

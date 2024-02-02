@@ -1,4 +1,4 @@
-name: Code Coverage
+name: Lint, Test and Deploy
 
 on:
   push:
@@ -24,10 +24,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests with code coverage
-        run: pytest --cov=. --cov-report=xml
+      - name: Run black
+        run: black .
+      
+      - name: lint toddbo
+        run:  pylint /toddbo
 
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: lint app
+        run:  pylint /app
+
+      - name: Run tests 
+        run: pytest ./tests
+
+      
+

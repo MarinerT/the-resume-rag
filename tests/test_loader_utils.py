@@ -1,6 +1,7 @@
 import unittest
 from toddbo import loader_utils
 
+
 class TestLoaderUtils(unittest.TestCase):
 
     def test_load_data(self):
@@ -20,5 +21,6 @@ class TestLoaderUtils(unittest.TestCase):
         self.assertEqual(processed_data[0], "hello world")
         self.assertEqual(processed_data[1], "this is a test")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
