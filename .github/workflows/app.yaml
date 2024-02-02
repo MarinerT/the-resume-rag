@@ -36,5 +36,11 @@ jobs:
       - name: Run tests 
         run: pytest ./tests
 
+      - name: Build image
+        run: echo "Building the image"
+        
+      - name: Deploy to Google Registry
+        run: echo "Deploying to Google Registry"
+
       
 
