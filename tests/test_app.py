@@ -1,4 +1,4 @@
-import app.app as app
+import src.app as app
 
 
 def test_app():
