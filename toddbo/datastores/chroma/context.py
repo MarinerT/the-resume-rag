@@ -5,7 +5,7 @@ from langchain.vectorstores import Chroma
 def generate_context(
     client,
     embedding_function,
-    collection_name="llm-example",
+    collection_name="resume",
     search_type="mmr",
     search_kwargs={"fetch_k": 100},
 ):

@@ -6,9 +6,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 import streamlit as st
 
-from toddbo.datastores import connect_to_collection, upload_to_collection
 
-OPENAI_KEY = st.secrets.OPENAI_API_KEY
+OPENAI_KEY = st.secrets.openai.OPENAI_API_KEY
 
 
 def unzip() -> None:
@@ -86,10 +85,4 @@ def format_to_json(documents) -> list:
         new_list.append(temp)
     return new_list
 
-
-def load_documents_to_chroma(client):
-    unzip()
-    documents = fetch_load_split()
-    collection = connect_to_collection(client, st.secrets.chroma.COLLECTION)
-    upload_to_collection(documents, collection)
 

@@ -27,7 +27,7 @@ def load_pinecone(
     return docsearch
 
 
-def build_retriever(search_type="mmr"):
+def build_pinecone_retriever(search_type="mmr"):
     documents = fetch_load_split()
     vectordb = load_pinecone(documents)
     if vectordb is not None:
@@ -41,7 +41,7 @@ def generate_context(docsearch, kwargs):
     return retriever
 
 
-def retrieve_resume_documents(
+def build_chroma_retriever(
     prompt: str,
 ):
     client = connect_to_chroma(
