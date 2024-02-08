@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# from langchain.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
 
@@ -91,6 +91,7 @@ def create_chain(system_prompt):
     #         streaming=True,
     #         )
     llm = ChatOpenAI(
+        api_key=st.secrets.openai.OPENAI_API_KEY,
         temperature=st.secrets.openai.temperature,
         model_name=st.secrets.openai.generation_model,
     )
