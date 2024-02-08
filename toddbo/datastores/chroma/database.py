@@ -2,21 +2,21 @@
 import os, uuid
 from typing import List, Dict, Tuple
 import numpy as np
-import chromadb, openai, tiktoken
+import chromadb, tiktoken
 from chromadb.utils import embedding_functions
 from chromadb.config import Settings
 from langchain.schema import Document
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai.embeddings import OpenAIEmbeddings
 from tenacity import (
     retry,
     stop_after_attempt,
     wait_random_exponential,
 )
 from dotenv import load_dotenv
-
+import streamlit as st
 load_dotenv()
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+openai_api_key = st.secrets.openai.OPENAI_API_KEY
 
 
 def connect_to_chroma(

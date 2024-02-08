@@ -7,7 +7,7 @@ from langchain_openai import OpenAIEmbeddings
 import streamlit as st
 
 
-OPENAI_KEY = st.secrets.OPENAI_API_KEY
+OPENAI_KEY = st.secrets.openai.OPENAI_API_KEY
 
 
 def unzip() -> None:
