@@ -194,8 +194,7 @@ typing-inspect==0.9.0
 typing_extensions==4.9.0
 tzdata==2023.4
 tzlocal==5.2
-unstructured==0.12.3
-unstructured-client==0.17.0
+unstructured
 uri-template==1.3.0
 urllib3==2.2.0
 uvicorn==0.27.0.post1
