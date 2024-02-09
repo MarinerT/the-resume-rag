@@ -211,3 +211,5 @@ yarl==1.9.4
 zipp==3.17.0
 black
 pylint
+autopep8
+flake8
