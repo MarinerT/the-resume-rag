@@ -27,11 +27,14 @@ jobs:
       - name: Run black
         run: black .
       
-      - name: lint toddbo
-        run:  pylint /toddbo
+      - name: Run autopep8
+        run: autopep8 --in-place --aggressive --aggressive . --recursive
+      
+      - name: Run isort
+        run: isort .
 
-      - name: lint app
-        run:  pylint /app
+      - name: Run flake8
+        run: flake8 .
 
       - name: Run tests 
         run: pytest ./tests

@@ -35,7 +35,7 @@ def build_pinecone_retriever(search_type="mmr"):
         return retriever
 
 
-## CHROMA
+# CHROMA
 def generate_context(docsearch, kwargs):
     retriever = docsearch.as_retriever(**kwargs)
     return retriever
@@ -54,7 +54,8 @@ def build_chroma_retriever(
         collection_name=st.secrets.chroma.COLLECTION,
     )
     llm = ChatOpenAI(temperature=st.secrets.openai.temperature)
-    retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
+    retriever_from_llm = MultiQueryRetriever.from_llm(
+        retriever=retriever, llm=llm)
 
     unique_docs = retriever_from_llm.get_relevant_documents(query=prompt)
     return unique_docs

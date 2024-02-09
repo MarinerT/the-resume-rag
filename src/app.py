@@ -24,7 +24,8 @@ with st.sidebar:
         st.secrets.cookie.expiry_days,
         st.secrets["preauthorized"],
     )
-    name, authentication_status, username = authenticator.login("Login", "sidebar")
+    name, authentication_status, username = authenticator.login(
+        "Login", "sidebar")
 
     if st.session_state["authentication_status"]:
         authenticator.logout("Logout", "sidebar")
@@ -169,7 +170,8 @@ if user_prompt := st.chat_input("Your message here", key="user_input"):
         response = llm_chain.invoke({"question": user_prompt})
 
         # Add the response to the session state
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append(
+            {"role": "assistant", "content": response})
 
         # Add the response to the chat window
         with st.chat_message("assistant"):

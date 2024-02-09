@@ -1,6 +1,0 @@
-chromadb
-langchain
-tiktoken
-unstructured
-streamlit
-langchain-openai

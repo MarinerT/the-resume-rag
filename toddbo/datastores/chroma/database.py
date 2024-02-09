@@ -1,8 +1,10 @@
 # for more info https://docs.trychroma.com/usage-guide
-import os, uuid
+import os
+import uuid
 from typing import List, Dict, Tuple
 import numpy as np
-import chromadb, tiktoken
+import chromadb
+import tiktoken
 from chromadb.utils import embedding_functions
 from chromadb.config import Settings
 from langchain.schema import Document
@@ -130,12 +132,14 @@ def connect_to_collection(
             model_name="text-embedding-ada-002", api_key=openai_api_key
         )
     return client.get_or_create_collection(
-        name=collection, metadata=metadata, embedding_function=embedding_function
-    )
+        name=collection,
+        metadata=metadata,
+        embedding_function=embedding_function)
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
-def add_to_collection(collection: chromadb.Collection, data: Dict[str, list]) -> None:
+def add_to_collection(collection: chromadb.Collection,
+                      data: Dict[str, list]) -> None:
     """
     DESCRIPTION
     -----------
@@ -226,7 +230,8 @@ def format_data(
     # get documents over token limit
     documents = [d.page_content for d in data]
     tokens = get_token_num(documents)
-    indices_below, indices_above = extract_limit_indices(tokens, max_token=max_token)
+    indices_below, indices_above = extract_limit_indices(
+        tokens, max_token=max_token)
     documents_below, documents_above = parse_data_by_limit(
         documents, indices_below, indices_above
     )
@@ -247,7 +252,9 @@ def format_data(
     return data_to_add, over_limit
 
 
-def num_tokens_from_string(string: str, encoding_name: str = "cl100k_base") -> int:
+def num_tokens_from_string(
+        string: str,
+        encoding_name: str = "cl100k_base") -> int:
     """Returns the number of tokens in a text string."""
     encoding = tiktoken.get_encoding(encoding_name)
     num_tokens = len(encoding.encode(string))
@@ -270,20 +277,23 @@ def extract_limit_indices(tokens: np.array, max_token: int = 8191) -> tuple:
 def parse_data_by_limit(data, indices_below, indices_above):
     """Returns two lists of strings, one for strings with indices below,
     one for strings with indices above the max token limit"""
-    data = np.array(data, dtype=object) if not type(data) == np.array else data
+    data = np.array(
+        data, dtype=object) if not isinstance(
+        data, np.array) else data
     return data[indices_below].flatten(), data[indices_above].flatten()
 
 
 def upload_to_collection(
-    collection: chromadb.Collection, data: List[Document], split_size: int = 100
-) -> tuple:
+        collection: chromadb.Collection,
+        data: List[Document],
+        split_size: int = 100) -> tuple:
     """
     uploads data to a collection
     returns a list documents that were not uploaded since over the max token limit"""
     over_limit = []
     total_size = len(data)
     for i in range(0, total_size, split_size):
-        data_chunk = data[i : i + split_size]
+        data_chunk = data[i: i + split_size]
         formatted_chunk, over_limit_chunk = format_data(data)
         if len(over_limit_chunk) > 0:
             over_limit.append(over_limit_chunk)

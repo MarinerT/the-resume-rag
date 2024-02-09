@@ -24,7 +24,10 @@ def tiktoken_len(text) -> int:
     return len(tokens)
 
 
-def fetch_load_split(directory="resume/", chunk_size=128, chunk_overlap=64) -> list:
+def fetch_load_split(
+        directory="resume/",
+        chunk_size=128,
+        chunk_overlap=64) -> list:
     loader = DirectoryLoader(directory)
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
@@ -36,18 +39,21 @@ def fetch_load_split(directory="resume/", chunk_size=128, chunk_overlap=64) -> l
     return documents
 
 
-## PINECONE
-def load_to_pinecone(formatted_documents, namespace="v1", batch_size=100) -> None:
+# PINECONE
+def load_to_pinecone(
+        formatted_documents,
+        namespace="v1",
+        batch_size=100) -> None:
     pc = Pinecone(api_key=st.secrets.pinecone.api_key)
     index = pc.Index(st.secrets.pinecone.index)
     batch_limit = 100
     for i in range(0, len(formatted_documents), batch_size):
         index.upsert(
-            vectors=formatted_documents[i : i + batch_size], namespace=namespace
+            vectors=formatted_documents[i: i + batch_size], namespace=namespace
         )
 
 
-## CREATING THE VECTORS FOR PINECONE
+# CREATING THE VECTORS FOR PINECONE
 
 
 def get_embeddings(documents, model_name="text-embedding-ada-002"):
@@ -84,5 +90,3 @@ def format_to_json(documents) -> list:
         }
         new_list.append(temp)
     return new_list
-
-

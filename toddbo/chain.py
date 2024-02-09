@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 import time
 import openai
 from typing import Dict, List, Union
@@ -8,6 +8,7 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )
+
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
 def make_synchronous_openai_call(
@@ -33,26 +34,29 @@ def make_synchronous_openai_call(
         request_timeout=timeout_seconds,
     )
 
+
 def retrieve_resume_documents(
-        llm, 
-        user_prompt, 
+        llm,
+        user_prompt,
         retriever) -> list:
-    retriever_from_llm = MultiQueryRetriever.from_llm(retriever=retriever, llm=llm)
+    retriever_from_llm = MultiQueryRetriever.from_llm(
+        retriever=retriever, llm=llm)
     unique_docs = retriever_from_llm.get_relevant_documents(query=user_prompt)
     return unique_docs
+
 
 def generate_search_results(
     *,
     retriever,
     llm,
     user_prompt: str,
-    timeout_seconds: int=90,
+    timeout_seconds: int = 90,
 ) -> str:
-    
+
     start_time = time.time()
-    
+
     documents = retrieve_resume_documents(llm, user_prompt, retriever)
-    
+
     messages = [
         {
             "role": "system",
@@ -67,7 +71,7 @@ def generate_search_results(
             "content": "I'll provide input as text of a list of Documents in content that follows '!!!. "
             "Each item in the list contains page_content and metadata."
             "Provide a brief summary of all the documents."
-            "Give the section from the metadata and the related content." 
+            "Give the section from the metadata and the related content."
             "Provide the information in short bullet points and provide the metadata with each document laid as such:"
             "if a word is between * and *, make the word appear bold."
             "*Summary*: "
@@ -78,7 +82,7 @@ def generate_search_results(
         },
     ]
     start_time = time.time()
-    
+
     openai_response = make_synchronous_openai_call(
         openai_api_key=st.secrets.openai.OPENAI_API_KEY,
         model=st.secrets.openai.OPENAI_MODEL,
