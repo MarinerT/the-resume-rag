@@ -1,7 +1,7 @@
 import zipfile as z
 import tiktoken
 import uuid
-import Pinecone
+from pinecone import Pinecone
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
