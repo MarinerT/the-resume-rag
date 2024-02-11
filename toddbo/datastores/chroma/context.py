@@ -1,4 +1,3 @@
-import chromadb
 from langchain.vectorstores import Chroma
 
 

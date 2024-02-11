@@ -1,11 +1,12 @@
 import src.app as app
+from langchain_contrib.llms.testing import FakeLLM
 
 
 def test_app():
     # Test case 1: User is authenticated
     app.authentication_status = True
     app.user_prompt = "Hello, how are you?"
-    app.llm_chain = MockLLMChain()  # Replace with your own mock implementation
+    app.llm_chain = FakeLLM()  # Replace with your own mock implementation
     app.st.session_state.messages = []
 
     app.run_chat()

@@ -61,18 +61,22 @@ def generate_search_results(
         {
             "role": "system",
             "content": (
-                "You're an personal assistant tasked with helping recruiters find relevant experience from Todd's resume. "
+                """You're an personal assistant tasked with helping recruiters
+                  find relevant experience from Todd's resume. """
                 "Your task is to provide as many relevant documents as possible. "
-                "Lastly, generating results swiftly should be prioritized over achieving perfection."
+                """Lastly, generating results swiftly
+                should be prioritized over achieving perfection."""
             ),
         },
         {
             "role": "user",
-            "content": "I'll provide input as text of a list of Documents in content that follows '!!!. "
+            "content": """I'll provide input as text
+              of a list of Documents in content that follows '!!!. """
             "Each item in the list contains page_content and metadata."
             "Provide a brief summary of all the documents."
             "Give the section from the metadata and the related content."
-            "Provide the information in short bullet points and provide the metadata with each document laid as such:"
+            """Provide the information in short bullet points
+              and provide the metadata with each document laid as such:"""
             "if a word is between * and *, make the word appear bold."
             "*Summary*: "
             "*Section*: "

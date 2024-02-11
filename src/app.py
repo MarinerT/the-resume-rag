@@ -6,15 +6,17 @@ from langchain.prompts import PromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_openai import ChatOpenAI
 
-# from toddbo.chain import make_synchronous_openai_call, retrieve_resume_documents
+# from toddbo.chain import make_synchronous_openai_call,
+# retrieve_resume_documents
 # from toddbo.retriever import build_retriever
 # from toddbo import connect_to_chroma, load_documents_to_chroma
 
-### AUTHENTICATION ---------------------------------- ###
+# AUTHENTICATION ---------------------------------- ###
 with st.sidebar:
     st.subheader("Coming Soon!")
     st.caption(
-        "Copy/Paste your requirements and get a comparison to my resume using the multi-query fusion approach!"
+        '''Actual Functionality Coming Soon!
+        '''
     )
 
     authenticator = stauth.Authenticate(
@@ -128,7 +130,8 @@ st.header("Chat with Todd's Resume Assistant!")
 # Try something interesting and notice how the LLM responses are affected.
 system_prompt = st.text_area(
     label="System Prompt",
-    value="You are a helpful AI assistant who answers questions in short sentences.",
+    value='''You are a helpful AI assistant
+    who answers questions in short sentences.''',
     key="system_prompt")
 
 

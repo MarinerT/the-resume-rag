@@ -1,5 +1,9 @@
 import streamlit as st
-from toddbo import connect_to_chroma, unzip, fetch_load_split, connect_to_collection, upload_to_collection
+from toddbo import (connect_to_chroma,
+                    unzip,
+                    fetch_load_split,
+                    connect_to_collection,
+                    upload_to_collection)
 
 # Load data to Chroma
 

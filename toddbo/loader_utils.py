@@ -1,13 +1,14 @@
 import zipfile as z
 import tiktoken
 import uuid
+import Pinecone
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 import streamlit as st
 
 
-OPENAI_KEY = st.secrets.openai.OPENAI_API_KEY
+OPENAI_API_KEY = st.secrets.openai.OPENAI_API_KEY
 
 
 def unzip() -> None:
@@ -16,10 +17,8 @@ def unzip() -> None:
         zip_ref.extractall()
 
 
-tokenizer = tiktoken.get_encoding("cl100k_base")
-
-
 def tiktoken_len(text) -> int:
+    tokenizer = tiktoken.get_encoding("cl100k_base")
     tokens = tokenizer.encode(text, disallowed_special=())
     return len(tokens)
 
@@ -46,7 +45,6 @@ def load_to_pinecone(
         batch_size=100) -> None:
     pc = Pinecone(api_key=st.secrets.pinecone.api_key)
     index = pc.Index(st.secrets.pinecone.index)
-    batch_limit = 100
     for i in range(0, len(formatted_documents), batch_size):
         index.upsert(
             vectors=formatted_documents[i: i + batch_size], namespace=namespace

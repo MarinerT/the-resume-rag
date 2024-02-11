@@ -8,7 +8,6 @@ import tiktoken
 from chromadb.utils import embedding_functions
 from chromadb.config import Settings
 from langchain.schema import Document
-from langchain_openai.embeddings import OpenAIEmbeddings
 from tenacity import (
     retry,
     stop_after_attempt,
@@ -53,7 +52,10 @@ def connect_to_chroma(
     client = galdre.connect_to_chroma(local=False)
 
     # chromadb.HttpClient to a remote server
-    client = galdre.connect_to_chroma(chroma_host="someurl.com", chroma_port=80)
+    client = galdre.connect_to_chroma(
+        chroma_host="someurl.com",
+        chroma_port=80
+        )
 
     """
     if local:
@@ -91,13 +93,16 @@ def connect_to_collection(
                 "hnsw:space": "l2" (squared L2)
                               "ip" (inner product")
                               "cosine" (cosine similarity)
-     - embedding_function: default is to None, which calls OpenAIEmbeddings default model text-ada02
-     - overwrite: boolean, deletes the collection before recreating an empty version
+     - embedding_function: default is to None, which calls
+                        OpenAIEmbeddings default model text-ada02
+     - overwrite: boolean, deletes the collection before recreating
+       an empty version
 
     OUTPUT
     ------
 
-    chromadb.Collection on which you can perform collection actions like get(), peek() and count()
+    chromadb.Collection on which you can perform collection actions like
+        get(), peek() and count()
 
     EXAMPLES
     --------
@@ -108,14 +113,29 @@ def connect_to_collection(
     collection = galdre.connect_to_collection(client, collection_name)
 
     # Overwriting
-    collection = galdre.connect_to_collection(client, collection_name, overwrite=True)
+    collection = galdre.connect_to_collection(
+        client,
+        collection_name,
+        overwrite=True
+        )
 
     # Changing the distance method for embeddings
-    collection = galdre.connect_to_collection(client, collection_name, metadata={"hnsw:space": "l2"})
+    collection = galdre.connect_to_collection(
+        client,
+        collection_name,
+        metadata={"hnsw:space": "l2"}
+        )
 
     # Changing the EmbeddingFunction
-    sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-    collection = galdre.connect_to_collection(client, collection_name, embedding_function=sentence_transformer_ef)
+    sentence_transformer_ef = (
+       embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name="all-MiniLM-L6-v2")
+        )
+    collection = connect_to_collection(
+        client,
+        collection_name,
+        embedding_function=sentence_transformer_ef
+        )
 
     # Operations on a Collection
     collection.get()
@@ -144,7 +164,8 @@ def add_to_collection(collection: chromadb.Collection,
     DESCRIPTION
     -----------
 
-    adds data to a collection, but adds a retry/backoff component to remain under the token limits
+    adds data to a collection, but adds a retry/backoff component
+      to remain under the token limits
 
     INPUT
     -----
@@ -199,21 +220,25 @@ def format_data(
     DESCRIPTION
     -----------
 
-    converts list of Documents into the format needed to be uploaded into the collection
+    converts list of Documents into the format needed to be uploaded
+    into the collection
 
     INPUT
     -----
 
     data: list of langchain Document types
     ids: defaults to None, auto generates ids if none provided
-    max_token: limit is set to 8191, which is the limit for OpenAI model "text-embedding-ada-002"
+    max_token: limit is set to 8191, which is the limit for
+    OpenAI model "text-embedding-ada-002"
 
     OUTPUT
     ------
 
-    Tuple of the dictionary of data to be uploaded and a list of Documents that were over the max_token limit
+    Tuple of the dictionary of data to be uploaded and a list of Documents
+    that were over the max_token limit
 
-    data = [Document(page_content="blah, blah blah", metadata={"source": "source1.txt"}), ..]
+    data = [Document(page_content="blah, blah blah",
+    metadata={"source": "source1.txt"}), ..]
     returns Tuple(
         {
             "documents": ["blah, blah blah", ..],
@@ -267,8 +292,8 @@ def get_token_num(data: List[str]):
 
 
 def extract_limit_indices(tokens: np.array, max_token: int = 8191) -> tuple:
-    """Returns two lists for indices of tokens below or equal to the max_token limit
-    and another list for those above"""
+    """Returns two lists for indices of tokens below or equal
+      to the max_token limit and another list for those above"""
     indices_below = np.asarray(tokens <= max_token).nonzero()[0].flatten()
     indices_above = np.asarray(tokens > max_token).nonzero()[0].flatten()
     return list(indices_below), list(indices_above)
@@ -289,12 +314,13 @@ def upload_to_collection(
         split_size: int = 100) -> tuple:
     """
     uploads data to a collection
-    returns a list documents that were not uploaded since over the max token limit"""
+    returns a list documents that were not uploaded
+      since over the max token limit"""
     over_limit = []
     total_size = len(data)
     for i in range(0, total_size, split_size):
         data_chunk = data[i: i + split_size]
-        formatted_chunk, over_limit_chunk = format_data(data)
+        formatted_chunk, over_limit_chunk = format_data(data_chunk)
         if len(over_limit_chunk) > 0:
             over_limit.append(over_limit_chunk)
         try:

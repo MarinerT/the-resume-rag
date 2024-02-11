@@ -1,11 +1,13 @@
 import streamlit as st
 from langchain.vectorstores import Pinecone
 from langchain_openai import OpenAIEmbeddings
+from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain_openai import ChatOpenAI
 import pinecone
 
 # Load resume
 from toddbo.loader_utils import unzip, fetch_load_split
-from toddbo.datastores import connect_to_chroma, connect_to_collection
+from toddbo.datastores import connect_to_chroma
 
 unzip()
 
