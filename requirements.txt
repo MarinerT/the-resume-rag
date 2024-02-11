@@ -213,3 +213,4 @@ black
 pylint
 autopep8
 flake8
+pytest
