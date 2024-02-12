@@ -22,7 +22,7 @@ jobs:
           python-version: 3.x
 
       - name: install gcloud cli
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
