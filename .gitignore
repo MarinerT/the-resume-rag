@@ -164,4 +164,5 @@ cython_debug/
 .streamlit/
 resume/
 archive/
+creds.json
 ```
