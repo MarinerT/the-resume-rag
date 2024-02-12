@@ -25,6 +25,6 @@ WORKDIR /app/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 COPY --from=builder /usr/local/lib/ /usr/local/lib/
 
-RUN python3 scripts/load_data.py
+# RUN python3 scripts/load_data.py
 
 ENTRYPOINT python3 src/app.py
