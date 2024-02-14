@@ -52,9 +52,8 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/portfolio/portfolio:latest .
-          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/portfolio/portfolio:latest
-
+          docker build -t us-central1-docker.pkg.dev/quiet-chalice-195120/portfolio/portfolio:latest .
+          docker push us-central1-docker.pkg.dev/quiet-chalice-195120/portfolio/portfolio:latest
 
       
 
