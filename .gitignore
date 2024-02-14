@@ -165,4 +165,5 @@ cython_debug/
 resume/
 archive/
 creds.json
+mistral-7b-instruct-v0.1.Q4_0.gguf
 ```
